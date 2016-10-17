@@ -1,0 +1,117 @@
+describe Account;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| id    | int(15) | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+    //shows the column names in the desired table
+
+alter table Account modify id int auto_increment primary key;
+
+    //ALTER TABLE lets us change aspects of the table, its columns, data, etc.
+        //MODIFY is used to change the definition of a column
+        //in this case, our id column is changed to an integer
+        //with a primary auto increment key.
+    
+    
+ALTER TABLE Addressbook ADD id int auto_increment primary key;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE Addressbook;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| first_name | varchar(50) | YES  |     | NULL    |                |
+| last_name  | varchar(50) | YES  |     | NULL    |                |
+| id         | int(11)     | NO   | PRI | NULL    | auto_increment |
++------------+-------------+------+-----+---------+----------------+
+
+    //The Addressbook table now has an id column that will auto_increment
+
+    
+ALTER TABLE Entry ADD id int auto_increment primary key;
+    //Entry now has an id that auto_increments
+
+
+
+ALTER TABLE Account ADD (email VARCHAR(255), password VARCHAR(40), createdON DATETIME, modifiedON DATETIME );
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe Account;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email      | varchar(255) | YES  |     | NULL    |                |
+| password   | varchar(40)  | YES  |     | NULL    |                |
+| createdON  | datetime     | YES  |     | NULL    |                |
+| modifiedON | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+    //Altering the Account table by adding multiple columns
+    
+    
+ALTER TABLE Addressbook DROP first_name;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Addressbook DROP last_name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+    //dropping/deleting the first_name and last_name columns
+    //from the Addressbook table
+    
+    
+ALTER TABLE Addressbook ADD (accountId INT, name VARCHAR(255), createdOn DATETIME, modifiedOn DATETIME);                                    
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe Addressbook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| accountId  | int(11)      | YES  |     | NULL    |                |
+| name       | varchar(255) | YES  |     | NULL    |                |
+| createdOn  | datetime     | YES  |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+    //Adding several columns to the Addressbook table
+
+
+
+describe Entry;
++--------------------+---------------------------------+------+-----+---------+----------------+
+| Field              | Type                            | Null | Key | Default | Extra          |
++--------------------+---------------------------------+------+-----+---------+----------------+
+| id                 | int(11)                         | NO   | PRI | NULL    | auto_increment |
+| type               | enum('home','work','other')     | YES  |     | NULL    |                |
+| address_book_id    | int(11)                         | YES  |     | NULL    |                |
+| first_name         | varchar(255)                    | YES  |     | NULL    |                |
+| last_name          | varchar(255)                    | YES  |     | NULL    |                |
+| birthday           | datetime                        | YES  |     | NULL    |                |
+| subtype            | enum('phone','address','email') | YES  |     | NULL    |                |
+| content_line_one   | varchar(255)                    | YES  |     | NULL    |                |
+| content_line_two   | varchar(255)                    | YES  |     | NULL    |                |
+| content_line_three | varchar(255)                    | YES  |     | NULL    |                |
+| content_line_four  | varchar(255)                    | YES  |     | NULL    |                |
+| content_line_five  | varchar(255)                    | YES  |     | NULL    |                |
++--------------------+---------------------------------+------+-----+---------+----------------+
+
+    //Entry now has the correct columns
+
+    
+    
+    
+    
+    
+
+
+
