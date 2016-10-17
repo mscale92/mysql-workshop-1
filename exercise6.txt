@@ -1,0 +1,15 @@
+drop table Test;
+    //deletes the table called Test within the database
+    
+show tables;
+    //This shows which tables we have in our database
+        //Test is no longer there
+        
++---------------------------------+
+| Tables_in_decodemtl_addressbook |
++---------------------------------+
+| Account                         |
+| Addressbook                     |
+| Entry                           |
++---------------------------------+
+3 rows in set (0.00 sec)

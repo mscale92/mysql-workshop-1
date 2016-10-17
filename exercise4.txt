@@ -1,0 +1,12 @@
+show databases;
+
+Database           |
++--------------------+
+| information_schema |
+| c9                 |
+| decodemtl_test     |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
++--------------------+
+

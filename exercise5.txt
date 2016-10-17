@@ -1,0 +1,19 @@
+use decodemtl_addressbook;
+    //change to the desired database in order to
+    //start adding tables of table to that database
+    
+create table Account(id int(15));
+    //creates a table called Account that
+    //has a column called id that takes integers up to
+    //fifteen places
+        //note, all new tables MUST have at least one column
+        
+create table Addressbook(first_name varchar(50), last_name varchar(50));
+    //varchar stands for variable character
+        //it is a type of string in mysql
+    //In this instance, it will take any string between 0 and 50 characters
+
+
+create table Entry(number int(15));
+
+create table Test(testing varchar(10));

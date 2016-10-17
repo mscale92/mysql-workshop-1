@@ -1,0 +1,5 @@
+drop database decodemtl_test;
+    //deletes the database decodemtl_test
+
+show databases
+    //shows a list of the current databases on the server
