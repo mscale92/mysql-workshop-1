@@ -1,0 +1,5 @@
+mysql-ctl start
+    //starting the mysql server
+mysql -u mscale92
+    //entering the username in order to acces the mysqld server
+    
