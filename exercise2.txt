@@ -1,0 +1,5 @@
+create database decodemtl_test;
+    //creates a new database
+
+create database decodemtl_addressbook;
+
