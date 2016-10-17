@@ -1,0 +1,126 @@
+//Make a table that contains information for a barn on chickens
+
+describe Barn;
++--------------------+-------------------------------+------+-----+---------+-------+
+| Field              | Type                          | Null | Key | Default | Extra |
++--------------------+-------------------------------+------+-----+---------+-------+
+| chickens           | enum('rooster','hen','chick') | YES  |     | NULL    |       |
+| date_added_to_barn | datetime                      | YES  |     | NULL    |       |
+| birthday           | datetime                      | YES  |     | NULL    |       |
+| current_day        | datetime                      | YES  |     | NULL    |       |
++--------------------+-------------------------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+    //Chickens is an ENUM that has the possibility of being a rooster, hen, or chick
+    //date_added_to_barn takes a DATETIME, the date the animal was added to the barn
+    //bithday takes a DATETIME, the date of birth of the chickens
+    //current_day takes a DATETIME, the date of the current day/date
+
+alter table Barn add timestp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP; 
+    //changed current_day to timestp column
+        //This modification has the timestamp on today update to the current timestamp
+        //always, regardless of when it is accessed
+    
+    
+update Barn set today=current_date(); 
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+    //added a today column that has the current date as a datetime value
+        //necessary that this is a datetime so that it can be used in the
+        //timestampdiff function, it only takes datetime
+
+mysql> update Barn
+    -> set date_added_to_barn = '2016-10-17'
+    -> where name='Mary';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Barn
+    -> set date_added_to_barn = '2016-10-17', birthday = '1989-06-29'
+    -> where name='Blaise';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Barn;
++----------+---------------------+---------------------+------+--------+---------------------+---------------------+
+| chickens | date_added_to_barn  | birthday            | age  | name   | timestp             | today               |
++----------+---------------------+---------------------+------+--------+---------------------+---------------------+
+| hen      | 2016-10-17 00:00:00 | 1992-05-02 00:00:00 | NULL | Mary   | 2016-10-17 20:53:40 | 2016-10-17 00:00:00 |
+| rooster  | 2016-10-17 00:00:00 | 1989-06-29 00:00:00 | NULL | Blaise | 2016-10-17 20:54:24 | 2016-10-17 00:00:00 |
++----------+---------------------+---------------------+------+--------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+
+    //updated the date_added and birthday with dates
+        //forget to put them in between '' when originally adding them, oops
+       
+       
+        
+//Time for the age!
+
+
+update Barn
+    -> set age = TIMESTAMPDIFF(YEAR, birthday, today);
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from Barn;
++----------+---------------------+---------------------+------+--------+---------------------+---------------------+
+| chickens | date_added_to_barn  | birthday            | age  | name   | timestp             | today               |
++----------+---------------------+---------------------+------+--------+---------------------+---------------------+
+| hen      | 2016-10-17 00:00:00 | 1992-05-02 00:00:00 |   24 | Mary   | 2016-10-17 20:56:41 | 2016-10-17 00:00:00 |
+| rooster  | 2016-10-17 00:00:00 | 1989-06-29 00:00:00 |   27 | Blaise | 2016-10-17 20:56:41 | 2016-10-17 00:00:00 |
++----------+---------------------+---------------------+------+--------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+
+    //updated the age column to calculate the age of the
+        //chickens based upon the difference between their
+        //birthday and today
+        
+        //both are datetime values which can be used in the
+        //timestampdiff function
+        
+        //This is not automatic but does update the ages based upon the current
+        //date value, today, and the birthday value.
+        
+        
+//Actual Exercise!
+    //How many rooster, hen and chicks existed in the Barn on a specific date
+
+mysql> select name, chickens from Barn 
+where date_added_to_barn <= '2016-10-12';
++------+----------+
+| name | chickens |
++------+----------+
+| Peep | chick    |
+| Bo   | chick    |
++------+----------+
+2 rows in set (0.00 sec)
+        
+    //The two chicks, Bo and Peep, are the only chickens present before
+    //October 12th 2016.
+
+    //How many chicks will come to age on a specific date
+
+select count(name) from Barn
+    -> where chickens = 'chick' AND timestampdiff(year, birthday, '2017-07-08') >= 2;
+
++-------------+
+| count(name) |
++-------------+
+|           1 |
++-------------+
+
+    //Using the count method we are able to see how many chicks will
+    //be of age, in this case two, by a certain date.
+
+
+select name, count(name) from Barn where chickens = 'chick' AND timestampdiff(year, birthday, '2017-07-08') >= 2;                    
++------+-------------+
+| name | count(name) |
++------+-------------+
+| Bo   |           1 |
++------+-------------+
+1 row in set (0.00 sec)
+
+        //Here is the name of the chick as well!
